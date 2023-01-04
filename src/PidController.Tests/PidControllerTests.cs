@@ -1,3 +1,5 @@
+using NUnit.Framework;
+
 namespace PidController.Tests;
 
 public class PidControllerTests

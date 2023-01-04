@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PidController", "PidController\PidController.csproj", "{22C0632C-69CB-4127-B716-234CEB8B8D23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PidController", "PidController\PidController.csproj", "{22C0632C-69CB-4127-B716-234CEB8B8D23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PidController.Tests", "PidController.Tests\PidController.Tests.csproj", "{9F0289F6-5381-42B8-B21D-66C632834258}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PidController.Tests", "PidController.Tests\PidController.Tests.csproj", "{9F0289F6-5381-42B8-B21D-66C632834258}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PidController.Visualization", "PidController.Visualization\PidController.Visualization.csproj", "{1000F99B-665C-4C96-8DE4-3B2E1CCD375C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9F0289F6-5381-42B8-B21D-66C632834258}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F0289F6-5381-42B8-B21D-66C632834258}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F0289F6-5381-42B8-B21D-66C632834258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1000F99B-665C-4C96-8DE4-3B2E1CCD375C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1000F99B-665C-4C96-8DE4-3B2E1CCD375C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1000F99B-665C-4C96-8DE4-3B2E1CCD375C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1000F99B-665C-4C96-8DE4-3B2E1CCD375C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
