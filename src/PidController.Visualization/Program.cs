@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using LiveCharts;
+using System.Windows.Forms.Integration;
 using LiveCharts.Wpf;
 using Timer = System.Windows.Forms.Timer;
 
@@ -30,6 +30,9 @@ namespace PidController.Visualizer
         // Create a timer to update the visualization at regular intervals
         Timer timer = new Timer();
 
+        // Create an element host to host the gauge
+        ElementHost elementHost = new ElementHost();
+
         // Create a gauge to display the output
         Gauge gauge = new Gauge();
 
@@ -56,12 +59,19 @@ namespace PidController.Visualizer
             gauge.To = 100;
             gauge.Value = 0;
 
-            // Add the gauge to the form
-            Controls.Add(gauge);
+            // Set the element host's child to the gauge
+            elementHost.TabIndex = 0;
+            elementHost.Child = gauge;
+
+            // Add the element host to the form
+            Controls.Add(elementHost);
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            controller.integral = 0;
+            controller.derivative = 0;
+
             // Update the PID controller and get the output
             double output = controller.Update(setpoint, processVariable, dt);
 
