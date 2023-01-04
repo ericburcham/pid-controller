@@ -14,7 +14,7 @@ public class PIDController
     public double integral;
 
     // The previous error value, used to calculate the derivative
-    private double previousError;
+    public double previousError;
 
     public PIDController(double Kp, double Ki, double Kd)
     {

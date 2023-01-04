@@ -2,6 +2,10 @@ namespace PidController.Tests;
 
 public class PidControllerTests
 {
+    private const double Kp = 1.0;
+    private const double Ki = 0.5;
+    private const double Kd = 0.1;
+
     // The PIDController instance that will be tested
     private PIDController controller;
 
@@ -10,7 +14,7 @@ public class PidControllerTests
     public void SetUp()
     {
         // Create a new PIDController instance with some arbitrary constants
-        controller = new PIDController(1.0, 0.5, 0.1);
+        controller = new PIDController(Kp, Ki, Kd);
     }
 
     // Test that the Update method produces the correct output
@@ -18,28 +22,34 @@ public class PidControllerTests
     public void TestUpdate()
     {
         // Set the setpoint and process variable
-        var setpoint = 10.0;
-        var processVariable = 5.0;
+        double setpoint = 10.0;
+        double processVariable = 5.0;
 
         // Set the time step
-        var dt = 1.0;
+        double dt = 1.0;
 
         // Call the Update method and save the result
-        var output = controller.Update(setpoint, processVariable, dt);
+        double output = controller.Update(setpoint, processVariable, dt);
+
+        // Calculate the error
+        double error = setpoint - processVariable;
+
+        // Calculate the expected output
+        double expectedOutput = Kp * error + Ki * controller.integral + Kd * controller.derivative;
 
         // Verify that the output is correct
-        Assert.AreEqual(7.5, output, 0.001);
+        Assert.AreEqual(expectedOutput, output, 0.001);
     }
 
     [Test]
     public void TestIntegral()
     {
         // Set the setpoint and process variable
-        var setpoint = 10.0;
-        var processVariable = 5.0;
+        double setpoint = 10.0;
+        double processVariable = 5.0;
 
         // Set the time step
-        var dt = 1.0;
+        double dt = 1.0;
 
         // Call the Update method multiple times to update the integral term
         controller.Update(setpoint, processVariable, dt);
@@ -47,46 +57,65 @@ public class PidControllerTests
         controller.Update(setpoint, processVariable, dt);
 
         // Get the current value of the integral term
-        var integral = controller.integral;
+        double integral = controller.integral;
+
+        // Calculate the error
+        double error = setpoint - processVariable;
+
+        // Calculate the expected output
+        double expectedOutput = Kp * error + Ki * integral + Kd * controller.derivative;
 
         // Verify that the integral term is correct
-        Assert.AreEqual(3.0, integral, 0.001);
+        Assert.AreEqual(expectedOutput, integral, 0.001);
     }
 
     [Test]
     public void TestDerivative()
     {
         // Set the setpoint and process variable
-        var setpoint = 10.0;
-        var processVariable = 5.0;
+        double setpoint = 10.0;
+        double processVariable = 5.0;
 
         // Set the time step
-        var dt = 1.0;
+        double dt = 1.0;
 
         // Call the Update method to update the derivative term
         controller.Update(setpoint, processVariable, dt);
 
         // Get the current value of the derivative term
-        var derivative = controller.derivative;
+        double derivative = controller.derivative;
+
+        // Calculate the error
+        double error = setpoint - processVariable;
+
+        // Calculate the expected derivative value
+        double expectedDerivative = (error - controller.previousError) / dt;
 
         // Verify that the derivative term is correct
-        Assert.AreEqual(-5.0, derivative, 0.001);
+        Assert.AreEqual(expectedDerivative, derivative, 0.001);
     }
+
 
     [Test]
     public void TestLargeError()
     {
         // Set the setpoint and process variable
-        var setpoint = 100.0;
-        var processVariable = 5.0;
+        double setpoint = 100.0;
+        double processVariable = 5.0;
 
         // Set the time step
-        var dt = 1.0;
+        double dt = 1.0;
 
         // Call the Update method and save the result
-        var output = controller.Update(setpoint, processVariable, dt);
+        double output = controller.Update(setpoint, processVariable, dt);
+
+        // Calculate the error
+        double error = setpoint - processVariable;
+
+        // Calculate the expected output
+        double expectedOutput = Kp * error + Ki * controller.integral + Kd * controller.derivative;
 
         // Verify that the output is correct
-        Assert.AreEqual(95.0, output, 0.001);
+        Assert.AreEqual(expectedOutput, output, 0.001);
     }
 }
